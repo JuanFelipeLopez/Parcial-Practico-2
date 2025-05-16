@@ -1,4 +1,4 @@
 # Parcial Práctico 2
 
-- Nombre:
-- código:
+- Nombre: Juan Felipe Lopez
+- código: 202320114

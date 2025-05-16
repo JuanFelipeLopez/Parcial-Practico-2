@@ -1,21 +1,32 @@
-<div class="recipe-detail">
-  <h2>{{ recipe.nombre }}</h2>
-  <img
-    class="recipe-detail-img"
-    [src]="recipe.imagen"
-    alt="{{ recipe.imagen }}"
-  />
-  <p><strong>Porciones:</strong> {{ recipe.porciones }}</p>
-  <p><strong>Tiempo:</strong> {{ recipe.tiempo_minutos }} min</p>
-  <h3>Ingredientes</h3>
-  <app-ingredient-list
-    [ingredients]="recipe.ingredientes"
-  ></app-ingredient-list>
+<div class="container mt-4" *ngIf="recipe">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">{{ recipe.nombre }}</h2>
 
-  <h3>Pasos</h3>
-  <ol>
-    <li *ngFor="let step of recipe.pasos">
-      {{ step }}
-    </li>
-  </ol>
+      <img [src]="recipe.imagen"
+           [alt]="recipe.nombre"
+           class="img-fluid mb-3"
+           style="max-height: 300px; object-fit: cover; width: 100%;" />
+
+      <p><strong>Porciones:</strong> {{ recipe.porciones }}</p>
+      <p><strong>Tiempo:</strong> {{ recipe.tiempo_minutos }} min</p>
+
+      <h4 class="mt-4">Ingredientes</h4>
+      <app-ingredient-list [ingredients]="recipe.ingredientes"></app-ingredient-list>
+
+      <div class="alert alert-info mt-3" *ngIf="ingredienteMayor">
+        <strong>Ingrediente con mayor cantidad:</strong>
+        {{ ingredienteMayor.name }} ({{ ingredienteMayor.quantity }})
+      </div>
+
+      <h4 class="mt-4">Pasos</h4>
+      <ol>
+        <li *ngFor="let paso of recipe.pasos">
+          {{ paso }}
+        </li>
+      </ol>
+
+      <a [routerLink]="['/recipe']" class="btn btn-secondary mt-4">Volver al listado</a>
+    </div>
+  </div>
 </div>

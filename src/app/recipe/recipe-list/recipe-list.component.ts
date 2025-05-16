@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../Recipe';
-import { recipeData } from '../recipeData';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
-  standalone: false,
   templateUrl: './recipe-list.component.html',
-  styleUrl: './recipe-list.component.css',
+  styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
-  selected: Boolean = false;
-  selectedRecipe: Recipe | null = null;
+  cantidadesIngredientes: number[] = [];
 
-  constructor() {}
+  constructor(private recipeService: RecipeService) {}
 
-  ngOnInit() {
-    this.recipes = recipeData;
-  }
+  ngOnInit(): void {
+    this.recipeService.getRecipes().subscribe(data => {
+      console.log('Recetas cargadas:', data); 
+      this.recipes = data;
 
-  onSelect(recipe: Recipe) {
-    this.selectedRecipe = recipe;
-    this.selected = true;
+      this.cantidadesIngredientes = this.recipes.map(recipe =>
+        recipe.ingredientes?.length || 0
+      );
+    });
   }
 }
